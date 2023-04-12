@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Ejercicio Formulario</title>
@@ -18,26 +18,67 @@
     https://www.w3schools.com/html/tryit.asp?filename=tryhtml_elem_output-->
 
 <h3>Suscribase a Nuestro Portal de Noticias! Crear una cuenta es rápido!</h3>
-Nombre:
-Apellido:
-Sexo: Masculino Femenino
-Edad:
-Email:
-Usuario:
-Password:
-Confirmar Password:
+<p>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre">
+</p>
+<p>
+    <label for="apellido">Apellido:</label>
+    <input type ="text" name="apellido" id="apellido" placeholder="Apellido">
+</p>
+<p>
+    Sexo:<br>
+    <label for="masculino">Masculino</label>
+    <input type ="radio" name="genero" value="masculino" id="masculino">
 
-Tipo de servicio: Free / Standard / Premium
-Tema:
-Política
-Negocios
-Tecnología
-Salud
+    <label for="femenino">Femenino</label>
+    <input type ="radio" name="genero" value="femenino" id="femenino">
 
-Agregue un comentario:
+    <label for="prefiero no decirlo">Prefiero no decirlo</label>
+    <input type ="radio" name="genero" value="prefiero no decirlo" id="prefiero no decirlo">
+</p>
+<p>
+    <label for="edad">Edad:</label>
+    <input type ="number" name="edad" id="edad" placeholder="edad">
+</p>
+<p>
+    <label for="email">Email:</label>
+    <input type ="email" name="email" id="email" placeholder="email@dominio.com">
+</p>
+<p>
+    <label for="usuario">Usuario:</label>
+    <input type ="text" name="usuario" id="usuario" placeholder="usuario">
+</p>
+<p>
+    <label for="pass">Password:</label>
+    <input type ="password" name="pass" id="pass" placeholder="passwor">
+</p>
+<p>
+    <label for="confirmar_pass">Confirmar Password:</label>
+    <input type ="password" name="confirmar_pass" id="confirmar_pass" placeholder="password">
+</p>
+<p>
+    Tipo de servicio: <label for="free">Free</label> <input type="checkbox" name="tipo de dervicio" value="free" id="free">\
+                                  <label for="standard">Standard</label> <input type="checkbox" name="tipo de dervicio" value="standard" id="standard">\
+                                  <label for="premium"> Premium</label> <input type="checkbox" name="tipo de dervicio" value="premium" id="premium">\
+</p>
+<p>
+    <label for="tema">Tema:</label>
+    <select id="tema">
+        <option value="politica">Política</option>
+        <option value="negocios">Negocios</option>
+        <option value="tecnologia">Tecnología</option>
+        <option value="salud">Salud</option>
+    </select>
 
-Boton de Enviar
+</p>
+<p>
+    <label for="comentario">Agregue un comentario:</label> <textarea id="comentario"></textarea>
+</p>
+<p>
+    <button type="button">Boton de Enviar</button>
+</p>
 
-
+</form>
 </body>
 </html>
