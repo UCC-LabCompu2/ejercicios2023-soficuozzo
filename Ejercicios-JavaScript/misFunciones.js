@@ -135,5 +135,88 @@ function dibujarCirCuad(){
     ctx.fillStyle="#333899"
     ctx.fillRect(0+margen,yMax-40-margen, 40, 40);
 
-    ctx.arc()
+    ctx.arc(xMax/2, yMax/2, 20, 0, 2*Math.PI);
+    ctx.stroke();
+    ctx.fill();
+}
+var bandera;
+function dibujar(event){
+    var canvas=document.getElementById("canvasadibujar");
+    var ctx=canvas.getContext("2d");
+
+    var posX=event.clientX;
+    var posY=event.clientY;
+    console.log(posX, posY);
+    canvas.onmousedown=function (){bandera=true};
+    canvas.onmouseup=function (){bandera=false};
+
+    if(bandera){
+        ctx.fillRect(posX, posY, 5,5);
+        ctx.fill;
+    }
+}
+
+function limpiarcanvas(){
+    var canvas=document.getElementById("canvasadibujar");
+    var ctx=canvas.getContext("2d");
+    canvas.width=canvas.width;
+}
+function dibujarcuadriculado(){
+    var canvas=document.getElementById("myCanvas");
+    var ctx=canvas.getContext("2d");
+
+    var alturamax = canvas.height;
+    var anchomax = canvas.width;
+
+    ctx.beginPath();
+    for(var i = 0; i<alturamax;){
+        ctx.moveTo(0, i);
+        ctx.lineTo(anchomax, i);
+        ctx.strokeStyle="#3e67d9";
+        ctx.stroke();
+        i = i+20;
+    }
+    ctx.closePath();
+
+    ctx.beginPath();
+    for(var i = 0; i<anchomax;) {
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, alturamax);
+        ctx.strokeStyle = "#3e67d9";
+        ctx.stroke();
+        i = i + 20;
+    }
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(0, alturamax/2);
+    ctx.lineTo(anchomax, alturamax/2);
+    ctx.strokeStyle="#d93eba";
+    ctx.stroke();
+    i = i+20;
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(anchomax/2, 0);
+    ctx.lineTo(anchomax/2, alturamax);
+    ctx.strokeStyle="#d93eba";
+    ctx.stroke();
+    i = i+20;
+    ctx.closePath();
+}
+
+
+function dibujarImagen(posX, posY){
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    console.log(posX, posY);
+    var img = new Image();
+    img.src="images/auto.png";
+
+    canvas.width=canvas.width;
+
+    img.onload=function(){
+        ctx.drawImage(img, 0, 0);
+    }
+
 }
