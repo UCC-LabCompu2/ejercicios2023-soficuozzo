@@ -126,11 +126,11 @@ function cargarLS(){
     un=localStorage.getItem("unidadesLS")
     document.getElementById("dist").value = cant + " " + un;
 }
-function dibujarCirCuad(){
-    var canvas=document.getElementById("myCanvas");
-    var ctx=canvas.getContext("2d");
-    var xMax=canvas.width;
-    var yMax=canvas.height;
+function dibujarCirCuad() {
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    const xMax=canvas.width;
+    const yMax=canvas.height;
     var margen=5;
     ctx.fillStyle="#333899"
     ctx.fillRect(0+margen,yMax-40-margen, 40, 40);
@@ -162,48 +162,62 @@ function limpiarcanvas(){
     canvas.width=canvas.width;
 }
 function dibujarcuadriculado(){
-    var canvas=document.getElementById("myCanvas");
-    var ctx=canvas.getContext("2d");
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    ctx.font="10pt Verdana";
+    ctx.fillStyle = "blue";
 
-    var alturamax = canvas.height;
-    var anchomax = canvas.width;
+    console.log("Se comenzara a dibujar!!!");
+    const xMax = canvas.width;
+    const yMax = canvas.height;
 
-    ctx.beginPath();
-    for(var i = 0; i<alturamax;){
+    let paso = 20;
+    let ejeX=-15;
+    let ejeY=-25;
+    let despl = 2;
+
+    //Dibujar Líneas Horizontales
+
+    for(let i=0;i<yMax;i+=paso){
+        ctx.beginPath();
         ctx.moveTo(0, i);
-        ctx.lineTo(anchomax, i);
-        ctx.strokeStyle="#3e67d9";
+        ctx.lineTo(xMax, i);
+        ctx.strokeStyle = "#a19797"
         ctx.stroke();
-        i = i+20;
+        ctx.fillText(ejeX, xMax/2+despl, i+4);
+        ejeX +=1;
+        ctx.closePath();
     }
-    ctx.closePath();
 
-    ctx.beginPath();
-    for(var i = 0; i<anchomax;) {
+    //Dibujar Líneas Verticales
+    for(let i=0;i<xMax;i+=paso){
+        ctx.beginPath();
         ctx.moveTo(i, 0);
-        ctx.lineTo(i, alturamax);
-        ctx.strokeStyle = "#3e67d9";
+        ctx.lineTo(i, yMax);
+        ctx.strokeStyle = "#1b73f8"
+        ctx.fillText(ejeY, i, yMax/2 - 6);
+        ejeY +=1;
         ctx.stroke();
-        i = i + 20;
+        ctx.closePath();
     }
+
+    //Eje X
+    ctx.beginPath();
+    ctx.moveTo(0, yMax/2);
+    ctx.lineTo(xMax, yMax/2);
+    ctx.strokeStyle = "#830303"
+    ctx.stroke();
     ctx.closePath();
 
+    //Eje Y
     ctx.beginPath();
-    ctx.moveTo(0, alturamax/2);
-    ctx.lineTo(anchomax, alturamax/2);
-    ctx.strokeStyle="#d93eba";
+    ctx.moveTo(xMax/2, 0);
+    ctx.lineTo(xMax/2, yMax);
+    ctx.strokeStyle = "#830303"
     ctx.stroke();
-    i = i+20;
-    ctx.closePath();
-
-    ctx.beginPath();
-    ctx.moveTo(anchomax/2, 0);
-    ctx.lineTo(anchomax/2, alturamax);
-    ctx.strokeStyle="#d93eba";
-    ctx.stroke();
-    i = i+20;
     ctx.closePath();
 }
+
 
 
 function dibujarImagen(posX, posY){
@@ -216,7 +230,63 @@ function dibujarImagen(posX, posY){
     canvas.width=canvas.width;
 
     img.onload=function(){
-        ctx.drawImage(img, 0, 0);
+        var width = this.naturalWidth;
+        var height = this.naturalHeight;
+        console.log(width, height);
+        if(posY<0 || posX<0){
+            openDialog();
+        }else if(canvas.width-width<posX || canvas.height-height<posY){
+            openDialog();
+        }else{
+            ctx.drawImage(img, posX, posY);
+        }
     }
 
+    }
+
+let closeDialog = () => {
+    const dialog = document.getElementById("myDialog");
+    dialog.close();
 }
+
+let openDialog = () => {
+    const dialog = document.getElementById("myDialog");
+    dialog.showModal();
+}
+x=0;
+dx=2;
+function animarauto(){
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    canvas.width=canvas.width;
+
+    var img = new Image();
+    img.src="images/auto.png";
+
+    img.onload=function(){
+       ctx.drawImage(img, x, 100);
+    }
+    if(x>canvas.width){
+        x=0;
+    }
+    x+=dx;
+}
+var intervalId;
+let detenerauto=()=>{
+    console.log("Se detuvo el auto");
+    clearInterval(intervalId);
+}
+let comenzaranimacion=()=>{
+    console.log("Se llamo a comenzar animacion")
+    intervalId = setInterval(animarauto, 10);
+    setTimeout(detenerauto, 6000);
+}
+
+let animarNuevo=()=>{
+    setTimeout(cancelarAnimacion, 6000);
+    requestAnimationFrame(animarauto);
+}
+let cancelarAnimacion = () => {
+    cancelAnimationFrame(animationId);
+};
